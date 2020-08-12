@@ -1,0 +1,12 @@
+.certificate-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.certificate{
+  height: 440px;
+}
+.certificate:hover{
+  height: 465px;
+}

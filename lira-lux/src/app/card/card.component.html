@@ -1,0 +1,232 @@
+<div class="card product-card">
+  <div class="card__image-box" [ngStyle]="{'background-image':'url('+ card.images[0] +')'}">
+    <div class="roto-card-logo-box"><img src="../assets/images/logo-roto.png" alt="rotoLogo" style="width: 70px;"></div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{card.cardTitle}}</h5>
+    <p class="card-text">{{card.cardText}}</p>
+    <p>{{card.price}}</p>
+    <div class="buttons-box">
+      <button type="button" class="btn btn-outline-success" (click)="open(content, 'xl')">Дізнатись більше</button>
+      <button type="button" class="btn btn-outline-danger" (click)="open(phone, 'lg')">Купити</button>
+    </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{card.cardTitle}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6 col-12 ">
+            <ngb-carousel #carousel [interval]="3000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
+              <ng-template ngbSlide *ngFor="let img of images; index as i">
+                  <div class="picsum-img-wrapper carousel-image">
+                    <img [src]="img" alt="{{card.cardTitle}}">
+                  </div>
+              </ng-template>
+            </ngb-carousel>
+            <span><b>Область застосування:</b> {{card.scope}}</span>
+          </div>
+          <div class="col-lg-6 col-12">
+            <div class="modalTitleBox">
+              <div>
+                <h4 class="redColorOfText">{{card.modalTitles[0]}}</h4>
+                <h5>{{card.modalTitles[1]}}</h5>
+              </div>
+              <div class="windowIconBox">
+                <img src="{{card.icon}}" alt="{{card.cardTitle}}">
+              </div>
+            </div>
+            <div class="modalLine"></div>
+            <h6 class="redColorOfText"><b>Основні переваги:</b></h6>
+            <ul type="circle">
+              <li class="windowAdvantage" *ngFor="let adventage of this.card.advantages.adventage, let i = index"><b *ngIf="this.card.advantages.hasAdvantageTitle">{{this.card.advantages.advantageTitles[i]}}<br></b>{{adventage}}</li>
+            </ul>
+            <div class="modalLine"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <h6 class="redColorOfText"><b>Матеріал</b></h6>
+            <div class="row">
+              <div class="col-3">
+                <img src="../assets/images/wood.JPG" alt="wood roto roof window" style="width: 100px; height: 100px; margin-bottom: 10px;">
+              </div>
+              <div class="col" style="display: flex; align-items: center;">
+                <span>Дерево</span>
+              </div>
+            </div>
+            <h6 class="redColorOfText"><b>Технічні характеристики</b></h6>
+            <table class="specificationsTable">
+              <tr>
+                <th style="width: 100px;"></th>
+                <th>Коефіцієнт U<sub>g</sub></th>
+                <th>Коефіцієнт U<sub>w</sub></th>
+                <th>Значення енергопере-<br>дачі g в %</th>
+                <th>Клас звукоізо-<br>ляції</th>
+                <th>Клас повітропро-<br>никності</th>
+              </tr>
+              <tr *ngIf="this.card.woodSpecificationsTableRow1.isIt && this.card.woodSpecificationsTableRow1.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.woodSpecificationsTableRow1.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.woodSpecificationsTableRow1.isIt">
+                <td *ngFor="let item of this.card.woodSpecificationsTableRow1.specifications">{{item}}</td>
+              </tr>
+              <tr *ngIf="this.card.woodSpecificationsTableRow2.isIt && this.card.woodSpecificationsTableRow2.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.woodSpecificationsTableRow2.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.woodSpecificationsTableRow2.isIt">
+                <td *ngFor="let item of this.card.woodSpecificationsTableRow2.specifications">{{item}}</td>
+              </tr>
+              <tr *ngIf="this.card.woodSpecificationsTableRow3.isIt && this.card.woodSpecificationsTableRow3.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.woodSpecificationsTableRow3.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.woodSpecificationsTableRow3.isIt">
+                <td *ngFor="let item of this.card.woodSpecificationsTableRow3.specifications">{{item}}</td>
+              </tr>
+              <tr *ngIf="this.card.woodSpecificationsTableRow4.isIt && this.card.woodSpecificationsTableRow4.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.woodSpecificationsTableRow4.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.woodSpecificationsTableRow4.isIt">
+                <td *ngFor="let item of this.card.woodSpecificationsTableRow4.specifications">{{item}}</td>
+              </tr>
+            </table>
+            <div class="modalLine"></div>
+          </div>
+          <div class="col-lg-6 col-12" *ngIf="this.card.hasPlasticVersion">
+            <h6 class="redColorOfText"><b>Матеріал</b></h6>
+            <div class="row">
+              <div class="col-3">
+                <img src="../assets/images/plastic.JPG" alt="wood roto roof window" style="width: 100px; height: 100px; margin-bottom: 10px;">
+              </div>
+              <div class="col" style="display: flex; align-items: center;">
+                <span>ПВХ</span>
+              </div>
+            </div>
+            <h6 class="redColorOfText"><b>Технічні характеристики</b></h6>
+            <table class="specificationsTable">
+              <tr>
+                <th style="width: 100px;"></th>
+                <th>Коефіцієнт U<sub>g</sub></th>
+                <th>Коефіцієнт U<sub>w</sub></th>
+                <th>Значення енергопере-<br>дачі g в %</th>
+                <th>Клас звукоізо-<br>ляції</th>
+                <th>Клас повітропро-<br>никності</th>
+              </tr>
+              <tr *ngIf="this.card.plasticSpecificationsTableRow1.isIt && this.card.plasticSpecificationsTableRow1.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.plasticSpecificationsTableRow1.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.plasticSpecificationsTableRow1.isIt">
+                <td *ngFor="let item of this.card.plasticSpecificationsTableRow1.specifications">{{item}}</td>
+              </tr>
+              <tr *ngIf="this.card.plasticSpecificationsTableRow2.isIt && this.card.plasticSpecificationsTableRow2.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.plasticSpecificationsTableRow2.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.plasticSpecificationsTableRow2.isIt">
+                <td *ngFor="let item of this.card.plasticSpecificationsTableRow2.specifications">{{item}}</td>
+              </tr>
+              <tr *ngIf="this.card.plasticSpecificationsTableRow3.isIt && this.card.plasticSpecificationsTableRow3.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.plasticSpecificationsTableRow3.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.plasticSpecificationsTableRow3.isIt">
+                <td *ngFor="let item of this.card.plasticSpecificationsTableRow3.specifications">{{item}}</td>
+              </tr>
+              <tr *ngIf="this.card.plasticSpecificationsTableRow4.isIt && this.card.plasticSpecificationsTableRow4.hasTitle">
+                <td class="redColorOfText equipmentName" colspan="6">{{this.card.plasticSpecificationsTableRow4.title}}</td>
+              </tr>
+              <tr class="specificationsRow" *ngIf="this.card.plasticSpecificationsTableRow4.isIt">
+                <td *ngFor="let item of this.card.plasticSpecificationsTableRow4.specifications">{{item}}</td>
+              </tr>
+            </table>
+            <div class="modalLine"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-12" *ngIf="this.card.hasWDinfo">
+            <div class="wdIconBox">
+              <div class="wdIcon">WD</div>
+              <span><b>Блок WD</b></span>
+            </div>
+            <h6 class="redColorOfText"><b>Основні переваги</b></h6>
+            <ul type="circle">
+              <li class="windowAdvantage" *ngFor="let item of this.card.wdInfo">{{item}}</li>
+            </ul>
+            <div class="modalLine"></div>
+          </div>
+          <div class="col-lg-6 col-12" *ngIf="this.card.hasMoreOptions">
+            <h6 class="redColorOfText"><b>Додаткові опції вікна</b></h6>
+            <ul type="circle">
+              <li class="windowAdvantage" *ngFor="let item of this.card.moreOptions">{{item}}</li>
+            </ul>
+            <div class="modalLine"></div>
+          </div>
+          <div class="col-lg-6 col-12" *ngIf="this.card.hasQuadro">
+            <h6 class="redColorOfText"><b>Версія Quadro</b></h6>
+            <ul type="circle">
+              <li class="windowAdvantage" *ngFor="let item of this.card.quadroInfo">{{item}}</li>
+            </ul>
+            <div class="modalLine"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h6 class="redColorOfText"><b>Ціни</b></h6>
+            <ul>
+              <li class="windowAdvantage" *ngFor="let item of this.card.pricesByCompleteSets">
+                <b class="redColorOfText" >{{item.completeSet}}</b>
+                <ul type="circle">
+                  <li class="windowAdvantage" *ngFor="let window of item.windows"><b>{{window.windowName}}</b> <b>{{window.windowPrices}}<span class="redColorOfText">*</span></b></li>
+                </ul>
+              </li>
+            </ul>
+            <span class="redColorOfText"><b>*</b><small>Вартість вказана зі знижкою 25% від прайсової ціни (діапазон цін в залежності від розміру). Вартість тільки за вікно, без гідроізоляційного коміру (продається окремо).</small></span><br>
+            <button class="btn btn-success modalPhoneBtn" (click)="open(phone, 'lg')">Консультація / замовити вікно <i class="fas fa-phone-alt"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Закрити</button>
+      </div>
+    </ng-template>
+
+    <ng-template #phone let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Привіт!</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Зацікавили наші послуги?</h4>
+        <h6>Зателефонуйте до нас і ми надамо Вам усю необхідну інформацію, допоможемо з вибором вікна, та оформимо Ваше замовлення якнайшвидше!</h6>
+        <div class="row cantacts-wrapper">
+          <div class="card cards-default-shadow col-lg-5 col-11 contact-card">
+            <div class="photo-box card">
+              <img src="../assets/images/Igor.jpg" >
+            </div>
+            <div class="contact-info-box">
+              <h5>Ігор Миронович</h5>
+              <p>067-34-04-909</p>
+              <a href="tel:067-34-04-909" class="btn btn-success">Зателефонувати</a>
+            </div>
+          </div>
+          <div class="card cards-default-shadow col-lg-5 col-11 contact-card">
+            <div class="photo-box card">
+              <img src="../assets/images/yura.jpg">
+            </div>
+            <div class="contact-info-box">
+              <h5>Юрій Ігорович</h5>
+              <p>093-74-03-014</p>
+              <a href="tel:093-74-03-014" class="btn btn-success">Зателефонувати</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Закрити</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<button class="btn btn-outline-success" (click)="back()">Back to site</button>
+<div class="wrapper card cards-default-shadow">
+  <header class="card">
+    <img src="../assets/images/newLogoLLwhite.png" alt="">
+    <span>Admin page</span>
+  </header>
+  <section>
+    <h2 class="redColorOfText">Оновлення цін</h2>
+    <div *ngIf="items.length > 0">
+      <div *ngFor="let item of items; let i = index">
+        <div [formGroup]="form">
+          <span>{{item.cardTitle}}</span>
+          <input type="text" class="form-control" value="{{item.price}}" formControlName="{{item.cardTitle}}">
+        </div>
+      </div>
+      <button (click)="update()" class="btn btn-outline-success">Оновити ціни</button>
+    </div>
+  </section>
+  <footer class="card"></footer>
+</div>
+

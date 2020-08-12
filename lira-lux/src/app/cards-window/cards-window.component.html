@@ -1,0 +1,17 @@
+<section class="container-fluid" id="section__goods">
+  <div class="container">
+    <div class="section__header">
+      <h6 class="section__subtitle">Німецька якість</h6>
+      <h3 class="section__title">Мансардні вікна</h3>
+      <div class="title_underline"></div>
+    </div>
+    <div class="goods-list">
+      <div class="row">
+        <div class="col-xl-4 col-lg-6 col-12" *ngFor="let card of cards">
+          <app-card [card]="card"></app-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
